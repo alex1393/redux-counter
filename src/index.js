@@ -21,7 +21,7 @@ document.getElementById("dec").addEventListener("click", () => {
   store.dispatch({ type: "DEC" });
 });
 document.getElementById("rnd").addEventListener("click", () => {
-  const payload = Math.floor(Math.random() * 10);
+  const payload = Math.floor(Math.random() * 3);
   store.dispatch({ type: "RND", payload });
 });
 
