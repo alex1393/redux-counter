@@ -3,16 +3,23 @@ import reducer from "./reducer";
 import { inc, dec, rnd } from "./actions";
 
 const store = createStore(reducer);
+const { dispatch } = store;
 
-document.getElementById("inc").addEventListener("click", () => {
-  store.dispatch(inc());
-});
-document.getElementById("dec").addEventListener("click", () => {
-  store.dispatch(dec());
-});
+const bindActionCreator =
+  (creator, dispatch) =>
+  (...args) => {
+    dispatch(creator(...args));
+  };
+
+const incDispatch = bindActionCreator(inc, dispatch);
+const decDispatch = bindActionCreator(dec, dispatch);
+const rndDispatch = bindActionCreator(rnd, dispatch);
+
+document.getElementById("inc").addEventListener("click", () => incDispatch);
+document.getElementById("dec").addEventListener("click", () => decDispatch);
 document.getElementById("rnd").addEventListener("click", () => {
   const payload = Math.floor(Math.random() * 3);
-  store.dispatch(rnd(payload));
+  rndDispatch(payload);
 });
 
 const update = () => {
